@@ -154,6 +154,16 @@ DATABASES = {
     }
 }
 
+MEMCACHED_HOST = os.environ.get("MEMCACHED_HOST", "127.0.0.1")
+MEMCACHED_PORT = os.environ.get("MEMCACHED_PORT", 11211)
+
+CACHES = {
+    "default": {
+        "BACKEND": "django.core.cache.backends.memcached.PyMemcacheCache",
+        "LOCATION": f"{MEMCACHED_HOST}:{MEMCACHED_PORT}",
+    }
+}
+
 REST_FRAMEWORK = {
     "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
     "DEFAULT_AUTHENTICATION_CLASSES": ["knox.auth.TokenAuthentication"],

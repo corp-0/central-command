@@ -8,7 +8,13 @@ services:
     volumes:
       - db-data:/var/lib/postgresql/data
 
+  memcached:
+    image: memcached:1.6-alpine
+
   web:
+    depends_on:
+      - db
+      - memcached
     image: unitystation/central-command:latest
     environment:
       - DEBUG=0
